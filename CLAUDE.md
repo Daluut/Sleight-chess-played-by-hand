@@ -118,15 +118,14 @@ Index fingertip (landmark 8) drives a glowing ring cursor projected onto the boa
 | Gesture | Action |
 |---|---|
 | Point (index finger) | Move the cursor |
-| Pinch (thumb tip 4 near index tip 8) | Grab the piece under the cursor |
+| Make a fist (fingertips curled in) | Grab the piece under the cursor |
 | Move while pinching | Carry the piece |
-| Release pinch | Drop on the highlighted square (illegal → slides back) |
-| Open palm held still ~1s | Cancel / put the piece back |
+| Open your hand | Drop on the highlighted square (illegal → slides back) |
 | Swipe left / right | Previous / next mistake on the review screen |
 
 Implementation notes:
 - Normalise pinch distance by hand size (e.g. wrist-to-middle-knuckle distance) so it works at any distance from the camera.
-- Use hysteresis for pinch (different thresholds to start and end a pinch) to avoid flicker.
+- Use hysteresis for the fist (different thresholds to start and end a grip) to avoid flicker. Fist = average fingertip-to-wrist distance over hand size.
 - Smooth the cursor (One Euro filter or exponential smoothing — make it configurable).
 - Mirror the webcam horizontally so moving your hand right moves the cursor right.
 - If the hand is lost for a few frames, hold the last state briefly rather than dropping the piece.

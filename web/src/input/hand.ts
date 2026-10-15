@@ -48,7 +48,7 @@ export async function startHandInput(
     landmarker = await HandLandmarker.createFromOptions(vision, { baseOptions: { ...options, delegate: 'CPU' }, runningMode: 'VIDEO', numHands: 1 });
   }
 
-  const gestures = new GestureEngine({ ...DEFAULT_GESTURE_OPTIONS, pinchSensitivity: settings.pinchSensitivity });
+  const gestures = new GestureEngine({ ...DEFAULT_GESTURE_OPTIONS, gripSensitivity: settings.gripSensitivity });
   // Smoothing: settings.smoothing 0 (responsive) .. 1 (very smooth) maps to a
   // One Euro minimum cutoff of 1.4 Hz .. 0.2 Hz. Lower cutoff = smoother when still.
   const minCutoff = 1.4 - 1.2 * settings.smoothing;
@@ -110,7 +110,7 @@ export async function startHandInput(
         if (sq !== lastSquare) {
           lastSquare = sq;
           emit({ type: 'hover', pointer });
-        } else if (gestures.isPinching) {
+        } else if (gestures.isGripping) {
           // Keep the carried piece following the hand even inside one square.
           emit({ type: 'hover', pointer });
         }
@@ -120,11 +120,10 @@ export async function startHandInput(
       }
 
       for (const ev of gestures.update(lm as Landmark[] | null, now)) {
-        if (ev.type === 'pinchStart' && pointer) emit({ type: 'grab', pointer });
-        if (ev.type === 'pinchEnd') emit({ type: 'drop', pointer: pointer ?? { square: null, point: null } });
-        if (ev.type === 'palmCancel') emit({ type: 'cancel' });
+        if (ev.type === 'gripStart' && pointer) emit({ type: 'grab', pointer });
+        if (ev.type === 'gripEnd') emit({ type: 'drop', pointer: pointer ?? { square: null, point: null } });
         if (ev.type === 'swipe') emit({ type: 'swipe', dir: ev.dir });
-        if (ev.type === 'handLost') onStatus('Hand lost, pinch released');
+        if (ev.type === 'handLost') onStatus('Hand lost, piece released');
       }
     }
     requestAnimationFrame(frame);

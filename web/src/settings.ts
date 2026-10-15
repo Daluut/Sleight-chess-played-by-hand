@@ -6,8 +6,8 @@ export type ThemeName = 'classic' | 'walnut' | 'midnight';
 
 export interface Settings {
   inputMode: InputMode;
-  /** 0.5 (hard to pinch) to 1.5 (easy to pinch). Scales the pinch thresholds. */
-  pinchSensitivity: number;
+  /** 0.6 (needs a tight fist) to 1.4 (a loose fist is enough). */
+  gripSensitivity: number;
   /** 0 (responsive, a bit jittery) to 1 (very smooth, a bit laggy). */
   smoothing: number;
   showPreview: boolean;
@@ -20,7 +20,7 @@ export interface Settings {
 
 export const DEFAULT_SETTINGS: Settings = {
   inputMode: 'mouse',
-  pinchSensitivity: 1,
+  gripSensitivity: 1,
   smoothing: 0.5,
   showPreview: true,
   sound: true,

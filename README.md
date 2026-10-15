@@ -42,7 +42,7 @@ Open the printed `https://…:5173` address and accept the self-signed certifica
 | Local two-player | Multiplayer → Local two-player (hot-seat, same device) |
 | Online on your Wi-Fi | Multiplayer → Create as White / Black / Random → send the link → the other person opens it and takes the other colour |
 
-Hand controls: point with your index finger, pinch to grab, release to drop, open palm (held still) to put a piece back, swipe on the review screen to change mistake. Mouse and touch work the same way (click or drag). Settings (sensitivity, smoothing, preview, themes) are in Settings.
+Hand controls: point with your index finger to aim, make a fist to pick up a piece, open your hand to drop it, and swipe an open hand left or right on the review screen to change mistake. Mouse and touch work the same way (click or drag). Settings (sensitivity, smoothing, preview, themes) are in Settings.
 
 ## Tests
 

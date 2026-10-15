@@ -267,7 +267,7 @@ function onSetting(key: keyof Settings, raw: string | boolean): void {
       applyThemeCss(name);
       break;
     }
-    case 'pinchSensitivity':
+    case 'gripSensitivity':
     case 'smoothing':
       (settings as unknown as Record<string, number>)[key] = Number(raw);
       break;
@@ -426,8 +426,8 @@ function reviewStep(delta: number): void {
 // ---------- tutorial ----------
 const TUTORIAL_TEXT = (hand: boolean) => [
   hand ? 'Point your index finger at the glowing e2 pawn.' : 'Move the mouse over the glowing e2 pawn.',
-  hand ? 'Pinch thumb and index together to grab it.' : 'Press and hold the left button on it.',
-  hand ? 'Carry it to the glowing e4 square and open your pinch.' : 'Drag it to the glowing e4 square and release.',
+  hand ? 'Make a fist to grab it.' : 'Press and hold the left button on it.',
+  hand ? 'Carry it to the glowing e4 square and open your hand.' : 'Drag it to the glowing e4 square and release.',
 ];
 
 function startTutorial(): void {

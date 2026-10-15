@@ -158,11 +158,10 @@ export class UI {
         <h2>How to play</h2>
         <ul class="steps">
           <li><b>Point</b> with your index finger (or move the mouse) to aim the glowing cursor.</li>
-          <li><b>Pinch</b> thumb and index together to grab a piece.</li>
-          <li><b>Carry</b> it while pinching. Dots show legal squares.</li>
-          <li><b>Release</b> the pinch to drop. Illegal moves slide back.</li>
-          <li><b>Open palm</b>, held still for a second, puts the piece back.</li>
-          <li><b>Swipe</b> left or right on the review screen to change mistake.</li>
+          <li><b>Make a fist</b> to pick up the piece under the cursor.</li>
+          <li><b>Carry</b> it with your fist closed. Dots show legal squares.</li>
+          <li><b>Open your hand</b> to drop it. Illegal moves slide back.</li>
+          <li><b>Swipe</b> an open hand left or right on the review screen to change mistake.</li>
         </ul>
         <div class="stack">
           <button data-action="tutorial" class="primary">Practice (30-second tutorial)</button>
@@ -184,7 +183,7 @@ export class UI {
           <label class="radio"><input type="radio" name="input" data-setting="inputMode" value="hand" ${s.inputMode === 'hand' ? 'checked' : ''}/> Hand (webcam)</label>
           <label class="radio"><input type="radio" name="input" data-setting="inputMode" value="mouse" ${s.inputMode === 'mouse' ? 'checked' : ''}/> Mouse / touch</label>
         </div>
-        ${range('pinchSensitivity', 'Pinch sensitivity', 0.5, 1.5, 0.05)}
+        ${range('gripSensitivity', 'Fist sensitivity', 0.6, 1.4, 0.05)}
         ${range('smoothing', 'Cursor smoothing', 0, 1, 0.05)}
         ${check('showPreview', 'Show webcam preview')}
         <p class="label">Sound & coach</p>
@@ -195,7 +194,7 @@ export class UI {
         <div class="row">
           ${(['classic', 'walnut', 'midnight'] as const).map((t) => `<label class="radio"><input type="radio" name="theme" data-setting="theme" value="${t}" ${s.theme === t ? 'checked' : ''}/> ${t}</label>`).join('')}
         </div>
-        <p class="hint">Hand and pinch settings apply the next time you start a game.</p>
+        <p class="hint">Hand settings apply the next time you start a game.</p>
         <div class="stack"><button data-action="title">Back</button></div>
       </section>`;
   }
