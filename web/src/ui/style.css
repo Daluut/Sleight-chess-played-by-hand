@@ -1,0 +1,124 @@
+/* Sleight: layout and theme. Colours are tokens on :root so themes can swap them. */
+:root {
+  --fg: #e8ebf2;
+  --muted: #9aa3b5;
+  --card: rgba(20, 23, 32, 0.93);
+  --line: #2a2f3d;
+  --accent: #e0b84d;
+  --accent-fg: #14120b;
+  --good: #4ade80;
+  --inacc: #facc15;
+  --mistake: #fb923c;
+  --blunder: #f87171;
+  color-scheme: dark;
+}
+:root[data-theme='walnut'] { --accent: #d9a066; }
+:root[data-theme='midnight'] { --accent: #7aa2ff; --accent-fg: #06101f; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: #0d0f14; color: var(--fg); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+#board { position: fixed; inset: 0; }
+#board canvas { display: block; }
+.hidden { display: none !important; }
+
+button, input[type='text'] {
+  font: inherit; color: var(--fg); background: #222736; border: 1px solid var(--line);
+  border-radius: 10px; padding: 10px 14px; cursor: pointer; min-height: 40px;
+}
+button:hover:not(:disabled) { border-color: var(--accent); }
+button:disabled { opacity: 0.4; cursor: default; }
+button.primary { background: var(--accent); color: var(--accent-fg); border-color: transparent; font-weight: 600; }
+button.selected { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
+input[type='text'] { width: 100%; }
+input[type='range'] { width: 100%; accent-color: var(--accent); }
+
+/* Full-screen menus (title, setup, settings, game over, review). */
+#menu {
+  position: fixed; inset: 0; display: grid; place-items: center; padding: 16px;
+  background: rgba(5, 7, 12, 0.55); pointer-events: auto; overflow-y: auto;
+}
+#menu:has(.review) { background: transparent; place-items: end center; padding-bottom: 28px; pointer-events: none; }
+#menu:has(.review) .card { pointer-events: auto; }
+
+.card {
+  width: 100%; max-width: 440px; background: var(--card); border: 1px solid var(--line);
+  border-radius: 16px; padding: 24px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+.card h2 { margin: 0 0 12px; font-size: 22px; }
+.card.title { text-align: center; }
+.logo { font-size: 64px; margin: 0; letter-spacing: 2px; color: var(--accent); }
+.tag { color: var(--muted); margin: 4px 0 24px; }
+.label { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; }
+.hint { color: var(--muted); font-size: 14px; margin: 8px 0; }
+.stack { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.row > button { flex: 1 1 auto; }
+.levels { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.levels button { display: flex; flex-direction: column; align-items: flex-start; }
+.levels small { color: var(--muted); }
+.toggle, .radio, .slider { display: flex; align-items: center; gap: 8px; margin: 8px 0; flex-wrap: wrap; }
+.slider { flex-direction: column; align-items: stretch; }
+.steps li { margin: 8px 0; line-height: 1.4; }
+
+/* HUD: top bar, share box and side panel. */
+#hud .topbar {
+  position: fixed; top: 12px; left: 12px; right: 12px; display: flex; gap: 12px; align-items: center;
+  justify-content: space-between; background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 10px 14px; flex-wrap: wrap; pointer-events: auto;
+}
+#hud .mode { font-weight: 600; }
+#hud .status { color: var(--muted); flex: 1; }
+#hud .actions { display: flex; gap: 8px; }
+#hud .share {
+  position: fixed; top: 76px; left: 12px; display: flex; gap: 8px; align-items: center;
+  background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 8px 10px; font-size: 13px; pointer-events: auto;
+}
+#hud .share code { color: var(--accent); word-break: break-all; }
+#hud .side {
+  position: fixed; top: 132px; right: 12px; width: 240px; max-height: calc(100vh - 160px); overflow-y: auto;
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px; pointer-events: auto;
+}
+#hud .side h3 { margin: 0 0 8px; font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.moves { list-style: none; margin: 0; padding: 0; font-variant-numeric: tabular-nums; }
+.moves li { padding: 3px 0; }
+.moves .num { color: var(--muted); display: inline-block; width: 32px; }
+.moves .empty { color: var(--muted); }
+.captured { margin-top: 12px; font-size: 18px; line-height: 1.6; }
+.captured div { font-size: 13px; color: var(--muted); }
+.captured span { font-size: 18px; color: var(--fg); }
+
+/* Webcam preview, bottom-left, with landmarks drawn on top. */
+#preview { position: fixed; left: 12px; bottom: 12px; width: 200px; height: 150px; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: #000; pointer-events: none; }
+#preview video, #preview canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+#preview video { object-fit: cover; transform: scaleX(-1); }
+
+/* Tutorial and review */
+#tutorial { position: fixed; top: 76px; left: 50%; transform: translateX(-50%); width: min(420px, calc(100% - 24px)); pointer-events: auto; }
+.tutorial-card { background: var(--card); border: 2px solid var(--good); border-radius: 14px; padding: 14px 16px; }
+.tutorial-card p { margin: 6px 0 10px; font-size: 16px; }
+.count { color: var(--muted); font-size: 13px; }
+.review-head { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+.review-head .count { margin-left: auto; }
+.badge { padding: 2px 8px; border-radius: 999px; font-size: 12px; text-transform: uppercase; color: #111; font-weight: 700; }
+.badge.blunder { background: var(--blunder); }
+.badge.mistake { background: var(--mistake); }
+.badge.inaccuracy { background: var(--inacc); }
+.badge.good { background: var(--good); }
+.explain { font-size: 16px; line-height: 1.5; min-height: 60px; }
+.legend { color: var(--muted); font-size: 13px; }
+.red { color: #ff5555; }
+.green { color: #55ff88; }
+
+#toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #111521; border: 1px solid var(--accent);
+  padding: 10px 16px; border-radius: 12px; z-index: 10; max-width: calc(100% - 32px);
+}
+
+/* Phones: stack the panels so nothing overlaps the board. */
+@media (max-width: 720px) {
+  #hud .side { display: none; }
+  #hud .topbar { top: 8px; left: 8px; right: 8px; }
+  #hud .share { top: 110px; left: 8px; right: 8px; flex-wrap: wrap; }
+  #preview { width: 120px; height: 90px; left: 8px; bottom: 8px; }
+  .logo { font-size: 48px; }
+}
