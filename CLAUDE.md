@@ -210,3 +210,24 @@ Not in the original brief; added by the developer. Two ways to play a human oppo
 - Clean, gradual commit history.
 - At least a few unit tests for the gesture engine (pinch thresholds) and the move-classification logic.
 - Multiplayer (local and LAN) works, tested with two devices.
+
+---
+
+## Status
+
+Built so far (first full pass, not yet tested on the laptop with a real webcam):
+
+- **Phase 1:** Vite + TS on LAN HTTPS, 3D board with procedural pieces, mouse drag with chess.js legality and highlights, Stockfish 19 with five difficulty levels.
+- **Phase 2:** title, new game setup, HUD (moves, captures, status), pause, game over, settings saved to localStorage, three board themes.
+- **Phase 3:** webcam with HandLandmarker and landmark preview, One Euro cursor smoothing, raycast onto the board, pinch grab/carry/drop with hysteresis, open-palm cancel, swipe, 30-second tutorial. Mouse falls back automatically if there is no camera.
+- **Phase 4:** post-game analysis (every position at depth 10), move classification, accuracy, FastAPI `/api/review`. The LLM only explains supplied facts, and if the key or server is missing the review uses template text.
+- **Phase 5 (partial):** synthesised sound effects, themes, error states (camera, server, connection).
+- **Phase 6:** local hot-seat, online rooms with a shareable link, colour choice, spectators, seat reconnect, server-side move validation.
+
+Known gaps and decisions:
+- Promotion is always to a queen (underpromotion not yet offered).
+- Hand tracking has been checked only with a headless browser (no camera). It needs a real pass on the laptop.
+- Phase 5 polish is basic: no animation tuning, and one sound set.
+- Rooms live in memory and are lost when the server restarts.
+- Multiplayer games do not get the Stockfish review, as planned.
+- Video, README GIF, and a live deployment (Phase 5 steps 14–15) are still to do.
